@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Leaflet</title>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* css to customize Leaflet default styles  */
+        .popupCustom .leaflet-popup-tip,
+        .popupCustom .leaflet-popup-content-wrapper {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .popupCustom .leaflet-popup-tip img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .popupCustom .leaflet-popup-content-wrapper img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+    /*legend */
+    .legend {
+        position: absolute;
+        top: 20px;
+        left: 60px;
+        color: #ffffff;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        text-align: left;
+        padding-left: 1em;
+        padding-right: .5em;
+        width: 10%;
+        font: 16px/18px Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #000;
+        overflow:hidden;
+        text-decoration: none;
+
+    }
+
+    .legend a {
+        text-decoration: none;
+        color: #404142;
+    }
+
+
+    .legend a:hover {
+    text-decoration: underline;
+
+
+    }
+
+   
+
+
+    .legend div span {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 17px;
+    }
+</style>
+
+
+    </style>
+
+</head>
+<body>
+
+<div id="map"></div>
+
+
+            <div class="legend"><p>Lat/Long Generator</p>
+              <div>
+
+<script>
+    const map = L.map('map').setView([49.1659, -123.9401], 8);
+
+
+//VIA MAPBOX
+  //  const tiles = L.tileLayer('YOUR TOKEN HERE', {
+   //     maxZoom: 19,
+   // }).addTo(map);
+   // map.on('click', onMapClick);
+
+//VIA OSM
+
+//const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+ //   maxZoom: 19,
+ //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+// map.on('click', onMapClick);
+
+
+    const markers = [];
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function onMapClick(e) {
+        const markerColor = getRandomColor();
+
+        const popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent(`${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`)
+            .openOn(map);
+
+        const marker = L.marker(e.latlng, {
+            icon: L.icon({
+                iconUrl: `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|${markerColor.slice(1)}`,
+                iconSize: [30, 47],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+            }),
+        }).addTo(map);
+
+        marker.bindPopup(popup);
+        markers.push(marker);
+
+        // Remove marker on right-click
+        marker.on('contextmenu', function (event) {
+            map.removeLayer(marker);
+            markers.splice(markers.indexOf(marker), 1);
+        });
+    }
+</script>
+
+</body>
+</html>
