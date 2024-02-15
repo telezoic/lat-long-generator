@@ -13,3 +13,4 @@ For use with mapbox tiles, or OSM tiles.
  
 
 
+![latlong](https://github.com/telezoic/lat-long-generator/assets/444648/66a14013-bea0-49c4-9a6a-eead6771ea77)
