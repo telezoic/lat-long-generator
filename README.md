@@ -11,6 +11,6 @@ Uses the google charts api to generate random colors for the markers.
 
 For use with mapbox tiles, or OSM tiles . . . 
  
-
+![screenshot](updated-latlon.png)
 
 
