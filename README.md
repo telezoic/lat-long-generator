@@ -5,7 +5,7 @@ A quick and dirty map that that users can place multiple, random markers and get
 
 A right click removes the pop-up, or you can remove all pop-ups with the button.
 
-Built as a supplement for another mapping project, wherein muliple layers share coordinates. The markers then stack and can't be accessed by users. Using this tool one can space out the common coordinates to allow access to all the markers.
+Built as a supplement for another mapping project, wherein multiple layers share coordinates. The markers then stack and can't be accessed by users. Using this tool one can space out the common coordinates to allow access to all the markers.
 
 Uses the google charts api to generate random colors for the markers.
 
